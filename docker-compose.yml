@@ -1,0 +1,84 @@
+# Project Argus — fixed service topology.
+# DO NOT rename services, change ports, or rename env vars without a team-wide decision.
+# Every role builds against these exact hostnames/ports — that's the point.
+# All images below are free, open-source, self-hosted. No paid tier required for any of them.
+
+version: "3.9"
+
+services:
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - VITE_BACKEND_URL=http://localhost:8000
+    depends_on:
+      - backend
+
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      - ARGUS_NEO4J_URI=bolt://neo4j:7687
+      - ARGUS_NEO4J_USER=neo4j
+      - ARGUS_NEO4J_PASSWORD=${ARGUS_NEO4J_PASSWORD}
+      - ARGUS_POSTGRES_URL=postgresql://argus:${ARGUS_POSTGRES_PASSWORD}@postgres:5432/argus
+      - ARGUS_AI_ML_SERVICE_URL=http://ai-ml-service:8001
+      - ARGUS_INGESTION_SERVICE_URL=http://ingestion-service:8002
+    depends_on:
+      - neo4j
+      - postgres
+      - ai-ml-service
+
+  ai-ml-service:
+    build: ./ai-ml-service
+    ports:
+      - "8001:8001"
+    environment:
+      - ARGUS_SERVICE_NAME=ai-ml-service
+
+  ingestion-service:
+    build: ./ingestion-service
+    ports:
+      - "8002:8002"
+    environment:
+      - ARGUS_SERVICE_NAME=ingestion-service
+      - ARGUS_POSTGRES_URL=postgresql://argus:${ARGUS_POSTGRES_PASSWORD}@postgres:5432/argus
+
+  neo4j:
+    image: neo4j:5-community    # Community Edition only — never neo4j:5-enterprise, never Aura
+    ports:
+      - "7474:7474"   # browser UI
+      - "7687:7687"   # bolt protocol
+    environment:
+      - NEO4J_AUTH=neo4j/${ARGUS_NEO4J_PASSWORD}
+    volumes:
+      - argus_neo4j_data:/data
+
+  postgres:
+    image: postgres:16-alpine    # free, open-source
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=argus
+      - POSTGRES_PASSWORD=${ARGUS_POSTGRES_PASSWORD}
+      - POSTGRES_DB=argus
+    volumes:
+      - argus_postgres_data:/var/lib/postgresql/data
+
+  opensearch:
+    image: opensearchproject/opensearch:2   # open-source fork, NOT elasticsearch — see team constraints
+    ports:
+      - "9200:9200"
+    environment:
+      - discovery.type=single-node
+      - plugins.security.disabled=true   # fine for local hackathon dev, not for production
+    volumes:
+      - argus_opensearch_data:/usr/share/opensearch/data
+
+volumes:
+  argus_neo4j_data:
+  argus_postgres_data:
+  argus_opensearch_data:

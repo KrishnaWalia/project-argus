@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://project-argus/schemas/actor_node.schema.json",
+  "title": "ActorNode",
+  "description": "A clustered identity built from one or more Evidence edges. Owned by: Backend role. Consumed by: Frontend role, Database role (Neo4j persistence).",
+  "type": "object",
+  "required": ["actor_id", "aliases", "confidence_score", "evidence", "created_at", "updated_at"],
+  "properties": {
+    "actor_id": { "type": "string", "format": "uuid" },
+    "aliases": { "type": "array", "items": { "type": "string" } },
+    "confidence_score": { "type": "number", "minimum": 0, "maximum": 1 },
+    "evidence": { "type": "array", "items": { "$ref": "evidence.schema.json" } },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" }
+  }
+}

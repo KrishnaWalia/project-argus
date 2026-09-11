@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://project-argus/schemas/document.schema.json",
+  "title": "Document",
+  "description": "One crawled/ingested unit of text (forum post, marketplace listing, etc). Owned by: Data Ingestion role. Consumed by: AI/ML role, Database role.",
+  "type": "object",
+  "required": ["doc_id", "source_platform", "author_alias", "raw_text", "timestamp"],
+  "properties": {
+    "doc_id": { "type": "string", "format": "uuid" },
+    "source_platform": { "type": "string", "description": "e.g. 'forum_x', 'marketplace_y' — synthetic/sample in this build, never a real live source" },
+    "author_alias": { "type": "string" },
+    "raw_text": { "type": "string" },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "extracted_features": {
+      "type": "object",
+      "properties": {
+        "function_word_freq": { "type": "array", "items": { "type": "number" }, "description": "fixed-length vector, order defined by ai-ml-service/function_words.json" },
+        "avg_sentence_len": { "type": "number" },
+        "avg_word_len": { "type": "number" },
+        "vocab_richness": { "type": "number" },
+        "pgp_key_ids": { "type": "array", "items": { "type": "string" } },
+        "wallet_addresses": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}

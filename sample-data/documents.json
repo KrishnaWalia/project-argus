@@ -1,0 +1,75 @@
+[
+  {
+    "doc_id": "9a4c25e0-f492-4461-94f0-1b9111e7a320",
+    "source_platform": "forum_sample_1",
+    "author_alias": "ShadowByte99",
+    "raw_text": "The vendor's stock is limited and the escrow process takes roughly three days. Payment is accepted only in the usual coin, and buyers should always verify the PGP signature before sending funds.",
+    "timestamp": "2025-11-02T14:12:00Z",
+    "extracted_features": {
+      "function_word_freq": [
+        12.4,
+        9.8,
+        7.1,
+        6.3,
+        5.0
+      ],
+      "avg_sentence_len": 18.5,
+      "avg_word_len": 4.6,
+      "vocab_richness": 0.71,
+      "pgp_key_ids": [
+        "0xA1B2C3D4"
+      ],
+      "wallet_addresses": [
+        "bc1qsample000wallet0001"
+      ]
+    }
+  },
+  {
+    "doc_id": "a68f3fe9-d848-4f59-a9ab-d473ef5452ad",
+    "source_platform": "marketplace_sample_2",
+    "author_alias": "NightOwl_44",
+    "raw_text": "Stock on this listing is limited right now, and escrow usually takes about three days to release. Only the usual coin is accepted, so buyers should verify the PGP signature first, always.",
+    "timestamp": "2025-11-09T03:47:00Z",
+    "extracted_features": {
+      "function_word_freq": [
+        12.1,
+        9.6,
+        7.4,
+        6.0,
+        5.2
+      ],
+      "avg_sentence_len": 17.9,
+      "avg_word_len": 4.5,
+      "vocab_richness": 0.69,
+      "pgp_key_ids": [
+        "0xA1B2C3D4"
+      ],
+      "wallet_addresses": [
+        "bc1qsample000wallet0001"
+      ]
+    }
+  },
+  {
+    "doc_id": "76f6f744-1130-43cd-9442-f4f1e3504c77",
+    "source_platform": "forum_sample_1",
+    "author_alias": "CipherFrost",
+    "raw_text": "yo everyone, quick heads up \u2014 new batch just dropped lol. hit me up if u need it fast, i ship same day no cap. dm only, dont ask in the thread.",
+    "timestamp": "2025-11-05T20:03:00Z",
+    "extracted_features": {
+      "function_word_freq": [
+        4.2,
+        3.1,
+        8.9,
+        2.0,
+        1.1
+      ],
+      "avg_sentence_len": 8.2,
+      "avg_word_len": 3.4,
+      "vocab_richness": 0.58,
+      "pgp_key_ids": [],
+      "wallet_addresses": [
+        "bc1qsample999different"
+      ]
+    }
+  }
+]
